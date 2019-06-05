@@ -1,3 +1,5 @@
+00-aboutme.md
+00-preface.md
 01-logging.md
 02-configuration.md
 03-dependency-injection.md
