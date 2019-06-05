@@ -66,4 +66,4 @@ This is just a small customization. Anyway, this helps if you want to share the 
 
 Usually, if you run your application behind an web server like IIS or NGinX, you don't need to care about certificates in your ASP.NET Core application. But you need to if you host your application inside another application, on Docker or without an IIS or NGinX.
 
-ASP.NET Core has a new feature to run tasks in the background inside the application. To learn more about that, read the next post about [Customizing ASP.NET Core Part 05: HostedServices]({% post_url customizing-aspnetcore-05-hostedservices.md %}).
+ASP.NET Core has a new feature to run tasks in the background inside the application. To learn more about that, read the next chapter.

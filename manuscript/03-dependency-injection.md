@@ -130,5 +130,5 @@ Actually the last step sounds easy, but can be a hard task. Because you need to 
 
 Anyway, you have the choice to use any DI container which is compatible to the .NET Standard. You have the choice to change a lot of the default implementations in ASP.NET Core. 
 
-So you can with the default HTTPS behavior on Windows. To learn more about that please read the next post about [Customizing ASP.NET Core Part 04: HTTPS]({% post_url customizing-aspnetcore-04-https.md %}).
+So you can with the default HTTPS behavior on Windows. To learn more about that please read the next chapter.
 

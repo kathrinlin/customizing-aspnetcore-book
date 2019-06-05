@@ -130,7 +130,7 @@ If needed you are able to clear all the previously added logger providers. Than 
 
 This shows ho to handle different log levels in a a different way. You can use this to send an emails on hard errors, to log debug messages to a different log sink than regular informational messages and so on. 
 
-![](C:/git/blog/_source/_posts/%7B%7Bsite.baseurl%7D%7D/img/customize-aspnetcore/custom-logger.PNG)
+![](images/customize-aspnetcore/custom-logger.PNG)
 
 In many cases it doesn't make sense to write a custom logger because there are already many good third party loggers, like elmah, log4net and NLog. In the next section I'm going to show you how to use NLog in ASP.NET Core
 
@@ -200,4 +200,4 @@ The first line configures NLog to use the previously created `NLog.Config` and t
 
 The good thing of hiding the basic configuration is only to clean up the newly scaffolded projects and to keep the actual start as simple as possible. The developer is able to focus on the actual features. But the more the application grows the more important is logging. The default logging configuration is easy and it works like charm, but in production you need a persisted log to see errors from the past. So you need to add a custom logging or a more flexible logger like NLog or log4net.
 
-To learn more about ASP.NET Core configuration have a look into the next part of the series: [Customizing ASP.NET Core Part 02: Configuration]({% post_url customizing-aspnetcore-02-configuration.md %}).''
+To learn more about ASP.NET Core configuration have a look into the next chapter.

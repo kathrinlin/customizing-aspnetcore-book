@@ -3,3 +3,10 @@
 03-dependency-injection.md
 04-https.md
 05-hostedservices.md
+06-middlewares.md
+07-outputformatter.md
+08-modelbinders.md
+09-actionfilters.md
+10-taghelpers.md
+11-webhostbuilder.md
+12-hosting.md
