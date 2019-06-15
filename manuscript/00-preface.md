@@ -16,3 +16,9 @@ But there was still some more work to do:
 I decided not to change my personal language, my style of writing. Even if it is a more a casual language, than you may used to read in books like this. So the contents of that book are more or less the same as on the blog on https://asp.net-hacker.rocks.
 
 Even if all the contents are on my blog, I hope you will find this book useful and worth to read. And maybe it is worth to pay for as well.
+
+## People who supported me publishing this book
+
+While writing this book, I got help by the following contributors, who fixed errors and mistakes:
+
+* [Code Therapist](https://github.com/codetherapist)
