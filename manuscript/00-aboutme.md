@@ -2,6 +2,8 @@
 
 Juergen is a .NET addicted web developer, working with ASP.NET since 2002. He is a Microsoft MVP for Developer Technologies and the leader of a .NET user group in Basel and of the INETA Germany. He works as a software developer, consultant and trainer at YOO AG in Basel. Along with his family and job, he is presenting technical talks, he writes articles for .NET magazines and posts in his blog at https://asp.net-hacker.rocks 
 
+![](C:\git\hub\customizing-aspnetcore-book\manuscript\resources\images\guj.png)
+
 ## Becoming a software developer
 
 Juergen was born in Summer 1978 in Paderborn (Germany) and grew up in southern Germany near Singen, which is near the Swiss boarder and the Lake of Constance (around an hour away from Zurich, Switzerland). Swiss and Switzerland was always a part of his life, also because his aunt married a guy from Bern and vacations in the Swiss Alps got pretty common. 
