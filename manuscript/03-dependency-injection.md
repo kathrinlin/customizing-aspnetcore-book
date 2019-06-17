@@ -19,19 +19,20 @@ In the most projects you don't really need to use a different dependency injecti
 Create a new ASP.NET Core project and open the `Startup.cs`, you will find the method to configure the services which looks like this:
 
 ```csharp
-// This method gets called by the runtime. Use this method to add services to the container.
 public void ConfigureServices(IServiceCollection services)
 {
-	services.Configure<CookiePolicyOptions>(options =>
-	{
-		// This lambda determines whether user consent for non-essential cookies is needed for a given request.
-		options.CheckConsentNeeded = context => true;
-		options.MinimumSameSitePolicy = SameSiteMode.None;
-	});
+    services.Configure<CookiePolicyOptions>(options =>
+    {
+        // This lambda determines whether user 
+        // consent for non-essential cookies is 
+        // needed for a given request.
+        options.CheckConsentNeeded = context => true;
+    });
     
-    services.AddTransient<IService, MyService>();
+    services.AddTransient<IService, MyService>(); // custom service
 
-	services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+    services.AddControllersWithViews();
+    services.AddRazorPages();
 }
 ```
 
@@ -52,14 +53,16 @@ public IServiceProvider ConfigureServices(IServiceCollection services)
 {
     services.Configure<CookiePolicyOptions>(options =>
     {
-        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+        // This lambda determines whether user 
+        // consent for non-essential cookies is 
+        // needed for a given request.
         options.CheckConsentNeeded = context => true;
-        options.MinimumSameSitePolicy = SameSiteMode.None;
     });
     
     services.AddTransient<IService, MyService>(); // custom service
-    
-    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+    services.AddControllersWithViews();
+    services.AddRazorPages();
     
     return services.BuildServiceProvider()
 }
@@ -71,21 +74,29 @@ I changed the return type to `IServiceProvider` and return the `ServiceProvider`
 
 To change to a different or custom DI container you need to replace the default implementation of the `IServiceProvider` with a different one. Additionally you need to find a way to move the already registered services to the new container.
 
-The next code sample uses Autofac as a third party container. I use Autofac in this snippet because you are easily able to see what is happening here:
+The next code sample uses Autofac as a third party container. 
+
+~~~ shell
+dotnet add package Autofac.Extensions.DependencyInjection
+~~~
+
+I use Autofac in this snippet because you are easily able to see what is happening here:
 
 ```csharp
 public IServiceProvider ConfigureServices(IServiceCollection services)
 {
-    services.Configure<CookiePolicyOptions>(options =>
+     services.Configure<CookiePolicyOptions>(options =>
     {
-        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+        // This lambda determines whether user 
+        // consent for non-essential cookies is 
+        // needed for a given request.
         options.CheckConsentNeeded = context => true;
-        options.MinimumSameSitePolicy = SameSiteMode.None;
     });
+    
+    // services.AddTransient<IService, MyService>(); // custom service
 
-    //services.AddTransient<IService, MyService>();
-
-    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+    services.AddControllersWithViews();
+    services.AddRazorPages();
 
     // create a Autofac container builder
     var builder = new ContainerBuilder();
@@ -94,7 +105,7 @@ public IServiceProvider ConfigureServices(IServiceCollection services)
     builder.Populate(services);
 
     // use and configure Autofac
-    builder.RegisterType<MyService>().As<IService>();
+    builder.RegisterType<MyService>().As<IService>(); // custom service
 
     // build the Autofac container
     ApplicationContainer = builder.Build();
