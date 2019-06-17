@@ -247,4 +247,4 @@ The first line configures NLog to use the previously created `NLog.Config` and t
 
 The good thing of hiding the basic configuration is only to clean up the newly scaffolded projects and to keep the actual start as simple as possible. The developer is able to focus on the actual features. But the more the application grows the more important is logging. The default logging configuration is easy and it works like charm, but in production you need a persisted log to see errors from the past. So you need to add a custom logging or a more flexible logger like NLog or log4net.
 
-To learn more about how to configure ASP.NET Core 3.0 in the next chapter.
+To learn more about how to **configure** ASP.NET Core 3.0 in the next chapter.
