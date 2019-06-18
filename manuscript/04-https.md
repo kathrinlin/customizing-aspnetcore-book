@@ -2,9 +2,9 @@
 
 HTTPS is on by default now and a first class feature. On Windows the certificate which is needed to enable HTTPS is loaded from the windows certificate store. If you create a project on Linux and Mac the certificate is loaded from a certificate file. 
 
-> Even if you want to create a project to run it behind and IIS or an NGinX webserver HTTPS is enabled. Usually you would manage the certificate on the IIS or NGinX webserver in that case. But this shouldn't be a problem and you shouldn't disable HTTPS in the ASP.NET Core settings.
+> Even if you want to create a project to run it behind an IIS or an NGinX webserver HTTPS is enabled. Usually you would manage the certificate on the IIS or NGinX webserver in that case. But this shouldn't be a problem and you shouldn't disable HTTPS in the ASP.NET Core settings.
 >
-> To manage the certificate within the ASP.NET Core application directly makes sense if you run services behind the firewall, services which are not accessible from the internet. Services like background services for a micro service based applications, or services in a self hosted ASP.NET Core application.
+> To manage the certificate within the ASP.NET Core application directly makes sense if you run services behind the firewall, services which are not accessible from the internet. Services like background services for a micro service based application, or services in a self hosted ASP.NET Core application.
 
 There are some scenarios where it makes sense to also load the certificate from a file on Windows. This could be in an application that you will run on docker for Windows, and also on docker for Linux.
 
@@ -12,22 +12,26 @@ Personally I like the flexible way to load the certificate from a file.
 
 ## Setup Kestrel
 
-As well as in the first to parts of this blog series, we need override the default `WebHostBuilder` a little bit. With ASP.NET Core it is possible to replace the default Kestrel based hosting with an hosting based on an `HttpListener`. This means the Kestrel webserver is configured somehow to the host builder. You are able to add and configure Kestrel manually by **using** it. That means by calling the `UseKestrel()` method on the `IWebHostBuilder`:
+As well as in the first to parts of this blog series, we need override the default `WebHostBuilder` a little bit. With ASP.NET Core 3.0 it is possible to replace the default Kestrel based hosting with an hosting based on an `HttpListener`. This means the Kestrel webserver is configured somehow to the host builder. You are able to add and configure Kestrel manually by **using** it. That means by calling the `UseKestrel()` method on the `IWebHostBuilder`:
 
 ```csharp
 public class Program
 {
-	public static void Main(string[] args)
-	{
-		CreateWebHostBuilder(args).Build().Run();
-	}
+    public static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
 
-	public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-		WebHost.CreateDefaultBuilder(args)
-			.UseKestrel(options => 
-			{	
-			})
-			.UseStartup<Startup>();
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {                
+                webBuilder
+                    .UseKestrel(options => 
+                    {	
+                    })
+                    .UseStartup<Startup>();
+            }
 }
 ```
 
@@ -64,6 +68,6 @@ The problem is the hard coded password. **Never ever** store a password in a cod
 
 This is just a small customization. Anyway, this helps if you want to share the code between different platforms, if you want to run your application on Docker and don't want to care about certificate stores, etc.
 
-Usually, if you run your application behind an web server like IIS or NGinX, you don't need to care about certificates in your ASP.NET Core application. But you need to if you host your application inside another application, on Docker or without an IIS or NGinX.
+Usually, if you run your application behind an web server like IIS or NGinX, you don't need to care about certificates in your ASP.NET Core 3.0 application. But you need to if you host your application inside another application, on Docker or without an IIS or NGinX.
 
-ASP.NET Core has a new feature to run tasks in the background inside the application. To learn more about that, read the next chapter.
+ASP.NET Core 3.0 has a new feature to **run tasks in the background** inside the application. To learn more about that, read the next chapter.
