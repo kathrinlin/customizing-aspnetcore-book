@@ -37,6 +37,15 @@ services.AddControllers()
     });
 ```
 
+Some third party components that don't completely support ASP.NET Core 3.0, don't write asynchronously to the response stream, but ASP.NET Core 3.0 doesn't allow to write synchronously by default. To enable synchronous write access you need to add this lines to the `ConfigureServices` method:
+
+~~~ csharp
+services.Configure<KestrelServerOptions>(options =>
+{
+    options.AllowSynchronousIO = true;
+});
+~~~
+
 To try the formatters let's setup a small test project.
 
 ## Prepare a test project
@@ -145,10 +154,13 @@ public class VcardOutputFormatter : TextOutputFormatter
     }
 
     // this needs to be overwritten
-    public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+    public override Task WriteResponseBodyAsync(
+    	OutputFormatterWriteContext context, 
+    	Encoding selectedEncoding)
     {
         var serviceProvider = context.HttpContext.RequestServices;
-        var logger = serviceProvider.GetService(typeof(ILogger<VcardOutputFormatter>)) as ILogger;
+        var logger = serviceProvider
+        	.GetService(typeof(ILogger<VcardOutputFormatter>)) as ILogger;
 
         var response = context.HttpContext.Response;
 
@@ -168,7 +180,10 @@ public class VcardOutputFormatter : TextOutputFormatter
         return response.WriteAsync(buffer.ToString());
     }
 
-    private static void FormatVcard(StringBuilder buffer, Person person, ILogger logger)
+    private static void FormatVcard(
+    	StringBuilder buffer, 
+    	Person person, 
+    	ILogger logger)
     {
 		buffer.AppendLine("BEGIN:VCARD");
 		buffer.AppendLine("VERSION:2.1");
@@ -188,7 +203,7 @@ In the constructor we need to specify the supported media types and encodings. I
 
 The method `WriteResponseBodyAsync()` then actually writes the list of persons out to the response stream via a `StringBuilder`
 
-At least we need to register the new VcardOutputFormatter in the `Startup.cs`:
+At least we need to register the new `VcardOutputFormatter` in the `Startup.cs`:
 
 ```csharp
 services.AddControllers()
@@ -236,10 +251,13 @@ public class CsvOutputFormatter : TextOutputFormatter
     }
 
     // this needs to be overwritten
-    public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+    public override Task WriteResponseBodyAsync(
+    	OutputFormatterWriteContext context, 
+    	Encoding selectedEncoding)
     {
         var serviceProvider = context.HttpContext.RequestServices;
-        var logger = serviceProvider.GetService(typeof(ILogger<CsvOutputFormatter>)) as ILogger;
+        var logger = serviceProvider
+        	.GetService(typeof(ILogger<CsvOutputFormatter>)) as ILogger;
 
         var response = context.HttpContext.Response;
 
@@ -262,9 +280,9 @@ public class CsvOutputFormatter : TextOutputFormatter
 
 ```
 
-This almost works the same way. We can pass the response stream via a StreamWriter directly into the CsvWriter. After that we are able to feed the writer with the persons or the list of persons. That's it.
+This almost works the same way. We can pass the response stream via a `StreamWriter` directly into the `CsvWriter`. After that we are able to feed the writer with the persons or the list of persons. That's it.
 
-We also need to register the CsvOutputFormatter before we can test it.
+We also need to register the `CsvOutputFormatter` before we can test it.
 
 ```csharp
 services.AddControllers()
