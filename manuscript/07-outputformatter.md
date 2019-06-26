@@ -1,6 +1,6 @@
 # Part 07: OutputFormatter
 
-In this seventh post I want to write about, how to send your Data in different formats and types to the client. By default the ASP.NET Core Web API sends the data as JSON, but there are some more ways to send the data.
+In this seventh chapter I want to write about, how to send your Data in different formats and types to the client. By default the ASP.NET Core Web API sends the data as JSON, but there are some more ways to send the data.
 
 ## About OutputFormatters
 
@@ -11,17 +11,18 @@ With the - so called - content negotiation the client is able to decide which fo
 By default the Web API always returns JSON, even if you accept `text/xml` in the header. This is why the build in XML formatter is not registered by default. There are two ways to add a `XmlSerializerOutputFormatter` to ASP.NET Core:
 
 ```csharp
-services.AddMvc()
+services.AddControllers()
     .AddXmlSerializerFormatters();
 ```
 
 or 
 
 ```csharp
-services.AddMvc(options =>
-{
-    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-});
+services.AddControllers()
+    .AddMvcOptions(options =>
+    {
+        options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+    });
 ```
 
 > There is also a XmlDataContractSerializerOutputFormatter available
@@ -29,10 +30,11 @@ services.AddMvc(options =>
 Also any Accept header gets turned into `application/json`. If you want to allow the clients to accept different headers, you need to switch that translation off:
 
 ```json
-services.AddMvc(options =>
-{
-    options.RespectBrowserAcceptHeader = true; // false by default
-});
+services.AddControllers()
+    .AddMvcOptions(options =>
+    {
+        options.RespectBrowserAcceptHeader = true; // false by default
+    });
 ```
 
 To try the formatters let's setup a small test project.
@@ -42,7 +44,7 @@ To try the formatters let's setup a small test project.
 Using the console we will create a small ASP.NET Core Web API project. Execute the following commands line by line:
 
 ```shell
-dotnet new webapi -n WebApiTest -o WebApiTest
+dotnet new webapi -n OutputFormatterSample -o OutputFormatterSample
 cd WebApiTest
 dotnet add package GenFu
 dotnet add package CsvHelper
@@ -82,11 +84,12 @@ public class Person
 Open the `Startup.cs` as well and add the Xml formatters and allow other accept headers as described earlier:
 
 ```csharp
-services.AddMvc(options =>
-{
-    options.RespectBrowserAcceptHeader = true; // false by default
-    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-});
+services.AddControllers()
+    .AddMvcOptions(options =>
+    {	
+        options.RespectBrowserAcceptHeader = true; // false by default
+        options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+    });
 ```
 
 That's it for now. Now you are able to retrieve the data from the Web API. Start the project by using the `dotnet run` command.
@@ -188,14 +191,15 @@ The method `WriteResponseBodyAsync()` then actually writes the list of persons o
 At least we need to register the new VcardOutputFormatter in the `Startup.cs`:
 
 ```csharp
-services.AddMvc(options =>
-{
-    options.RespectBrowserAcceptHeader = true; // false by default
-    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-    
-    // register the VcardOutputFormatter
-    options.OutputFormatters.Add(new VcardOutputFormatter()); 
-});
+services.AddControllers()
+    .AddMvcOptions(options =>
+    {
+        options.RespectBrowserAcceptHeader = true; // false by default
+        options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+
+        // register the VcardOutputFormatter
+        options.OutputFormatters.Add(new VcardOutputFormatter()); 
+    });
 
 ```
 
@@ -263,17 +267,17 @@ This almost works the same way. We can pass the response stream via a StreamWrit
 We also need to register the CsvOutputFormatter before we can test it.
 
 ```csharp
-services.AddMvc(options =>
-{
-    options.RespectBrowserAcceptHeader = true; // false by default
-    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-    
-    // register the VcardOutputFormatter
-    options.OutputFormatters.Add(new VcardOutputFormatter()); 
-	// register the CsvOutputFormatter
-    options.OutputFormatters.Add(new CsvOutputFormatter()); 
-});
+services.AddControllers()
+    .AddMvcOptions(options =>
+    {
+        options.RespectBrowserAcceptHeader = true; // false by default
+        options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
 
+        // register the VcardOutputFormatter
+        options.OutputFormatters.Add(new VcardOutputFormatter()); 
+        // register the CsvOutputFormatter
+        options.OutputFormatters.Add(new CsvOutputFormatter()); 
+    });
 ```
 
 In Postman change the `Accept` header to `text/csv` and press send again:
@@ -284,4 +288,4 @@ In Postman change the `Accept` header to `text/csv` and press send again:
 
 Isn't that cool? I really like the way to change the format based on the except header. This way you are able to create an Web API for many different clients and that accept many different formats. There are still a lot of potential clients outside which don't use JSON and prefer XML or CSV.
 
-The other way around would be an option to consume CSV or any other format inside the Web API. Let's assume your client would send you a list of persons in CSV format. How would you solve this? Parsing the String manually in the action method would work, but it's not a nice option. This is what ModelBinders can do for us. Let's see how this works in the next chapter.
+The other way around would be an option to consume CSV or any other format inside the Web API. Let's assume your client would send you a list of persons in CSV format. How would you solve this? Parsing the String manually in the action method would work, but it's not a nice option. This is what **ModelBinders** can do for us. Let's see how this works in the next chapter.

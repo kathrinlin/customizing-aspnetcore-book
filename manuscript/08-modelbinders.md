@@ -1,6 +1,6 @@
 # Part 08: ModelBinders
 
-In the last post about `OutputFormatters` I wrote about sending data out to the clients in different formats. In this post we are going to do it the other way. This post is about data you get into your Web API from outside. What if you get data in a special format or what if you get data you need to validate in a special way. `ModelBinders` will help you handling this.
+In the last chapter about `OutputFormatters` I wrote about sending data out to the clients in different formats. In this post we are going to do it the other way. This post is about data you get into your Web API from outside. What if you get data in a special format or what if you get data you need to validate in a special way. `ModelBinders` will help you handling this.
 
 ## About ModelBinders
 
@@ -10,7 +10,7 @@ The model binding tries to find the values in the request by the parameter names
 
 ## Preparation of the test project
 
-In this post I'd like to send CSV data to a Web API method. I will reuse the CSV data we created in the last post:
+In this chapter I'd like to send CSV data to a Web API method. I will reuse the CSV data we created in the last post:
 
 ```csv
 Id,FirstName,LastName,Age,EmailAddress,Address,City,Phone
@@ -203,7 +203,5 @@ To learn more about ModelBinders, you need to have a look into the pretty detail
 
 While playing around with the `ModelBinderProvider` Steve describes in his blog, I stumbled upon `InputFormatters`. Would this actually be the right way to transform CSV input into objects? I definitely need to learn some more details about the `InputFormatters`and will use this as 12th topic of this series.
 
-Please follow the [introduction post of this series]({% post_url customizing-aspnetcore-series.md %}) to find additional customizing topics I will write about.
-
-In the next chapterI will show you what you can do with ActionFilters.
+In the next chapterI will show you what you can do with **ActionFilters**.
 

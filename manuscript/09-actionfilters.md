@@ -100,7 +100,7 @@ Here we use the `ValidateModelAttribute` that checks the `ModelState` and return
 To register ActionFilters globally you need to extend the MVC registration in the `CofnigureServices` method of the `Startup.cs`:
 
 ```csharp
-services.AddMvc()
+services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
         options.Filters.Add(new SampleActionFilter());
@@ -115,7 +115,7 @@ The Logging `LoggingActionFilter` we created previously is a little more special
 Because of this there are some more ways to register ActionFilters. Globally we are able to register it as a type, that gets instantiated by the dependency injection container and the dependencies can be solved by the container.
 
 ```csharp
-services.AddMvc()
+services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
         options.Filters.Add<LoggingActionFilter>();
@@ -132,7 +132,7 @@ public class HomeController : Controller
 {
 ```
 
-in addition to the global filter registration, the ActionFilter needs to be registered in the `ServiceCollection` before we can use it with the `ServiceFilterAttribute`:
+In addition to the global filter registration, the ActionFilter needs to be registered in the `ServiceCollection` before we can use it with the `ServiceFilterAttribute`:
 
 ```csharp
 services.AddSingleton<LoggingActionFilter>();
@@ -158,4 +158,4 @@ Personally I like the way to keep the actions clean using ActionFilters. If I fi
 
 There are some more kind of filters, which all work similar. To learn more about the different kind of filters, you definitely need to [read the docs](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/filters).
 
-In the tenth part of the series we move to the actual view logic and extend the Razor Views with custom TagHelpers.
+In the tenth part of the series we move to the actual view logic and extend the Razor Views with custom **TagHelpers**.
