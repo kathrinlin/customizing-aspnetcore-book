@@ -4,7 +4,7 @@ In the third part we'll take a look into the ASP.NET Core dependency injection a
 
 ## Why using a different dependency injection container?
 
-In the most projects you don't really need to use a different dependency injection Container. The DI implementation in ASP.NET Core supports the main basic features and works well and pretty fast. Anyway, some other DI container support some interesting features you maybe want to use in your application.
+In the most projects you don't really need to use a different dependency injection Container than the exiting one. The DI implementation in ASP.NET Core supports the main basic features and works well and pretty fast. Anyway, some other DI container support some interesting features you maybe want to use in your application.
 
 - Maybe you like to create an application that support modules as lightweight dependencies.
   - E.g. modules you want to put into a specific directory and they get automatically registered in your application
@@ -124,7 +124,7 @@ Our custom service `MyService` now gets registered using the Autofac way.
 
 After that, the container gets build and stored in a property of type `IContainer`. In the last line of the method `ConfigureServices` we create a `AutofacServiceProvider` and pass in the `IContainer`. This is the `IServiceProvider` we need to return to use Autofac within our application.
 
-## UPDATE:  Introducing Scrutor
+## Introducing Scrutor
 
 You don't always need to replace the existing .NET Core DI container to get and use nice features. In the beginning I mentioned the auto registration of services. This can also be done with a nice NuGet package called [Scrutor](https://www.nuget.org/packages/Scrutor/) by [Kristian Hellang](https://twitter.com/khellang) ([https://kristian.hellang.com/](https://kristian.hellang.com/)). Scrutor extends the IServiceCollection to automatically register services to the .NET Core DI container.
 
@@ -132,6 +132,63 @@ You don't always need to replace the existing .NET Core DI container to get and 
 > https://github.com/khellang/Scrutor
 
 [Andrew Lock](https://andrewlock.net) published a pretty detailed blog post about Scrutor. It doesn't make sense to repeat that. Read that awesome post and learn more about it: [Using Scrutor to automatically register your services with the ASP.NET Core DI container](https://andrewlock.net/using-scrutor-to-automatically-register-your-services-with-the-asp-net-core-di-container/)
+
+## Update on ASP.NET Core 3.0
+
+The last sections only work in ASP.NET Core prior to version 3.0. Since the Hosting model changed in ASP.NET Core 3.0 the Startup method `ConfigureService()`, cannot return an `IServiceProvider` anymore. To register a custom IoC container you need to register a different `IServiceProviderFactory`. In that case an `AutofacServiceProviderFactory`, if you use Autofac.
+
+I created a small extension method to register Autofac:
+
+~~~ csharp
+public static class IHostBuilderExtension
+{
+    public static IHostBuilder UseAutofacServiceProviderFactory(
+        this IHostBuilder hostbuilder)
+    {
+        hostbuilder.UseServiceProviderFactory<ContainerBuilder>(
+            new AutofacServiceProviderFactory());
+        return hostbuilder;
+    }
+}
+~~~
+
+The `AutofacServiceProviderFactory` is provided by the latest version of the `Autofac.Extensions.DependencyInjection` package.
+
+And this gets be used in the `Program.cs` like this:
+
+~~~ csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .UseAutofacServiceProviderFactory()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder
+                    .UseStartup<Startup>();
+            });
+}
+~~~
+
+If you have this in place you are able to use Autofac as you like. In the `Startup.cs` you are able to use the `IServiceCollection` to register the dependencies or to add an additional Method called `ConfigureContainer` to do it the Autofac way:
+
+~~~ csharp
+// ConfigureContainer is where you can register things directly
+// with Autofac. This runs after ConfigureServices so the things
+// here will override registrations made in ConfigureServices.
+// Don't build the container; that gets done for you. If you
+// need a reference to the container, you need to use the
+// "Without ConfigureContainer" mechanism shown later.
+public void ConfigureContainer(ContainerBuilder builder)
+{
+    builder.RegisterType<MyService>().As<IService>(); // custom service
+}
+~~~
 
 ## Conclusion
 
