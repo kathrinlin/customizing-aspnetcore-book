@@ -318,6 +318,12 @@ endpoints.MapHealthChecks(...); // the new Health Checks
 
 There are a lot more methods to define fallback endpoints, to map routes and HTTP methods to Delegates and Middlewares.
 
+If you want to create Middlewares that work an all request, like the `StopWatchMiddleware`, this will work as before on the `IApplicationBuilder`. If you have a Middleware that should work on a specific path or route, you should create a Map method  for it to map it to that route. It is not longer recommended to handle the route inside the middleware . With this approach the Middlewares are a lot more generic and they will work on multiple routes with a single configuration.
+
+I recently wrote a Middleware to provide a GraphQL endpoint in a ASP.NET Core application. I wrote a Middleware for it and I needed to rewrite it to follow the ASP.NET Core 3.0 way of routing. The old way would still work, but will handle the paths and routs separately from the new ASP.NET Core routing.
+
+Let's quickly see how it looks like to write a Middleware that supports the new endpoint routing:
+
 
 
 
