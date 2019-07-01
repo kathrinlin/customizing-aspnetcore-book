@@ -1,6 +1,6 @@
 # Part 11: WebHostBuilder
 
-In my post about [Configuring HTTPS in ASP.NET Core 2.1]({% post_url aspnetcore-ssl.md %}), a reader asked how to configure the HTTPS settings using user secrets.
+When I wrote the blog post about HTTPS, a reader asked how to configure the HTTPS settings using user secrets.
 
 > "How would I go about using user secrets to pass the password to `listenOptions.UseHttps(...)`? I can't fetch the configuration from within `Program.cs` no matter what I try. I've been Googling solutions for like a half hour so any help would be greatly appreciated."
 > [https://github.com/JuergenGutsch/blog/issues/110#issuecomment-441177441](https://github.com/JuergenGutsch/blog/issues/110#issuecomment-441177441)
@@ -33,7 +33,7 @@ public class Program
 }
 ```
 
-The reader wrote that he couldn't fetch the configuration inside this code. And he is true, if we are only looking at this snippet. You need to know that the method UseKestrel() is overloaded:
+The reader wrote that he couldn't fetch the configuration inside this code. And he is true, if we are only looking at this snippet. You need to know that the method `UseKestrel()` is overloaded:
 
 ```csharp
 .UseKestrel((host, options) =>
@@ -77,7 +77,7 @@ In this sample I chose to write the keys using the colon divider because this is
 }
 ```
 
-You are also able to read from the user secrets store with this keys:
+You are also able to read from the user secrets store with this keys set up:
 
 ```shell
 dotnet user-secrets init
@@ -170,6 +170,67 @@ SET KESTREL_ENDPOINTS_HTTP_URL=http://localhost:5555
 ```
 
 Also this configuration isn't executed 
+
+## Update on ASP.NET Core 3.0
+
+Since the hosting model in ASP.NET Core 3.0 is more generic, it looks a little bit different, but works the same way as in version 2.x. 
+
+In ASP.NET Core 3.0 a generic `IHostBuilder` is created using the method `CreateDefaultBuilder()`. That `IHostBuilder` could also be an `IWebHostBuilder` to configure hosting of a web application, or a `IBlazorHostBuilder` to configure hosting of an application on WebAssembly, or even a simple `HostBuilder` to configure a Worker Service host. On an empty web application the Program.cs looks like this: 
+
+~~~ csharp
+ public class Program
+ {
+     public static void Main(string[] args)
+     {
+         CreateHostBuilder(args).Build().Run();
+     }
+
+     public static IHostBuilder CreateHostBuilder(string[] args) =>
+         Host.CreateDefaultBuilder(args)
+         .ConfigureWebHostDefaults(webBuilder =>
+         {
+             webBuilder.UseStartup<Startup>();
+         });
+ }
+~~~
+
+Now let's adopt the concepts of configuration to the `IHostBuilder`. You are able to configure the `IHostBuilder` as well as the `IWebHostBuilder` in the Program class using the `appsettings.json`, the user secrets store as well as the environment variables:
+
+~~~ csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureLogging((context, config) => {
+                var logLevel = context.Configuration
+                    .GetValue("Logging:LogLevel", "");
+                
+            })
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder
+                    .UseKestrel((host, options) =>
+                    {
+                        var filename = host.Configuration
+                            .GetValue("AppSettings:certfilename", "");
+                        var password = host.Configuration
+                            .GetValue("AppSettings:certpassword", "");
+                        
+                        options.Listen(IPAddress.Loopback, 5000);
+                        options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                        {
+                            listenOptions.UseHttps(filename, password);
+                        });
+                    })
+                    .UseStartup<Startup>();
+            });
+}
+~~~
 
 ## Conclusion
 

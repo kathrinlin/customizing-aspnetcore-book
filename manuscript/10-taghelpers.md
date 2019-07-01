@@ -4,11 +4,11 @@ In this tenth part of this series I'm going to write about TagHelpers. The built
 
 ## About TagHelpers
 
-With TagHelpers you are able to extend existing HTML tags or to create new tags that get rendered on the server side. The extensions or the new tags are not visible in the browsers. TagHelpers a only kind of shortcuts to write easier and less HTML or Razor code on the server side. TagHelpers wil be interpreted on the server and will produce "real" HTML code for the browsers.
+With TagHelpers you are able to extend existing HTML tags or to create new tags that get rendered on the server side. The extensions or the new tags are not visible in the browsers. TagHelpers a only kind of shortcuts to write easier and less HTML or Razor code on the server side. TagHelpers will be interpreted on the server and will produce "real" HTML code for the browsers.
 
 TagHelpers are not a new thing in ASP.NET Core, it was there since the first version of ASP.NET Core. The most existing and built-in TagHelpers are a replacement for the old fashioned HTML Helpers, which are still existing and working in ASP.NET Core to keep the Razor views compatible to ASP.NET Core.
 
-A very basic example of extending HTML tags is the built in AnchorTagHelper:
+A very basic example of extending HTML tags is the built in `AnchorTagHelper`:
 
 ```html
 <!-- old fashioned HtmlHelper -->
@@ -21,7 +21,7 @@ The HtmlHelper are kinda strange between the HTML tags, for HTML developers. It 
 
 Many of the HtmlHelper can be replaced with a TagHelper. 
 
-There are also some new tags built with TagHelpers. Tags that are not existing in HTML, but look like HTML. One example is the EnvironmentTagHelper:
+There are also some new tags built with TagHelpers. Tags that are not existing in HTML, but look like HTML. One example is the `EnvironmentTagHelper`:
 
 ```html
 <environment include="Development">
@@ -68,7 +68,7 @@ public class StrongTagHelper : TagHelper
 }
 ```
 
-The first line tells the tag helper to work on tags with an target attribute `strong`.  This TagHelper doesn't define an own tag. But also provides an additional attribute to specify the color. At least the Process method defined how to render the HTML to the output stream. In this case it adds some CSS inline Styles to the current tag. It also removes the target attribute from the current tag. The color attribute won't show up.
+The first line tells the tag helper to work on tags with an target attribute `strong`.  This TagHelper doesn't define an own tag. But also provides an additional attribute to specify the color. At least the `Process` method defined how to render the HTML to the output stream. In this case it adds some CSS inline Styles to the current tag. It also removes the target attribute from the current tag. The color attribute won't show up.
 
 This will look like this
 
@@ -92,7 +92,7 @@ public class GreeterTagHelper : TagHelper
 }
 ```
 
-This TagHelper handles a greeter tag that has a property `name`. In the Process method the current tag will be changed to a `p` tag and the new content is set the the current output.
+This TagHelper handles a greeter tag that has a property `name`. In the `Process` method the current tag will be changed to a `p` tag and the new content is set the the current output.
 
 ```html
 <greeter name="Readers"></greeter>
@@ -190,7 +190,7 @@ To use this TagHelper you just need to assign a list of items to this tag:
 
 ```
 
-In this case it is a list of persons, that we get in the Persons property of our current model. The Person class  I use here looks like this:
+In this case it is a list of `Persons`, that we get in the `Persons` property of our current model. The `Person` class  I use here looks like this:
 
 ```csharp
 public class Person
@@ -209,7 +209,7 @@ public class Person
 
 ```
 
-So not all of the properties have a DisplayNameAttribute, so the fallback in  the `GetPropertyName` method is needed to get the actual property name instead of the the DisplayName value.
+So not all of the properties have a `DisplayNameAttribute`, so the fallback in  the `GetPropertyName` method is needed to get the actual property name instead of the the `DisplayName` value.
 
 To use it in production this TagHelper need some more checks and validations, but it works:
 
