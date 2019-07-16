@@ -1,6 +1,6 @@
 # About Juergen
 
-Juergen is a .NET addicted web developer, working with ASP.NET since 2002. He is a Microsoft MVP for Developer Technologies and the leader of a .NET user group in Basel and of the INETA Germany. He works as a software developer, consultant and trainer at YOO AG in Basel. Along with his family and job, he is presenting technical talks, he writes articles for .NET magazines and posts in his blog at https://asp.net-hacker.rocks 
+Juergen is a .NET addicted web developer, working with ASP.NET since 2002. He is a Microsoft MVP for Developer Technologies, the leader of a .NET user group in Basel and of the INETA Germany. He works as a software developer, consultant and trainer at YOO AG in Basel. Along with his family and job, he is presenting technical talks, he writes articles for .NET magazines and posts in his blog at https://asp.net-hacker.rocks 
 
 ![](images/guj.png)
 
