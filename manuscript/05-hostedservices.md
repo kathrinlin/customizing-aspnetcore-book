@@ -82,7 +82,7 @@ This results in the following console output:
 
 As you can see the log output is written to the console every two seconds.
 
-## About BacgroundService
+## About BackgroundService
 
 The `BackgroundService` class is new in ASP.NET Core 3.0 and is basically an abstract class that already implements the `IHostedService` Interface. It also provides an abstract method `ExecuteAsync()` that returns a `Task`.
 
