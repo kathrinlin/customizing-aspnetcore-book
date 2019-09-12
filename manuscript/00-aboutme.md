@@ -28,7 +28,7 @@ Pronunciation is another story:
 
 **Juergen**: Yurgen, while the first vowel is almost similar to the U in "urgent", the G should be spelled as in "get". (Actually not but this may be easier for English speaking people.) **Gutsch**: This may be easier. The G as in "get" and the rest is "ootch" with a short vowel.  So try to pronounce it like this: **Yurgen Gootch**. Actually the pronunciation of Juergen is also hard for German speaking folks.
 
-Actually the Microsoft ASP.NET program manager Jeff Fritz (CSharpFritz) is pronouncing my name pretty well. I also heard some ugly pronunciation like Gurgen Gutsh, where all the Gs are like in "gentleman" and the U like in "but"
+Actually the Microsoft ASP.NET program manager Jeff Fritz (CSharpFritz) is pronouncing my name pretty well. He also heard some ugly pronunciation like Gurgen Gutsh, where all the Gs are like in "gentleman" and the U like in "but"
 
 ## Developer community work
 
