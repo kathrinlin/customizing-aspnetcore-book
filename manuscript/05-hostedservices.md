@@ -1,8 +1,8 @@
 # Part 05: IHostedService and BackgroundService
 
-This fifth part doesn't really show a customization. This part is more about a feature you can use to create background services to run tasks asynchronously inside your application. Actually I use this feature to regularly fetch data from a remote service in a small ASP.NET Core application. 
+This fifth part does not really show a customization. This part is more about a feature you can use to create background services to run tasks asynchronously inside your application. Actually I use this feature to regularly fetch data from a remote service in a small ASP.NET Core application. 
 
-## About IHostedServcice
+## About IHostedService
 
 Hosted service are a new thing in ASP.NET Core 2.0 and can be used to run tasks asynchronously in the background of your application. This can be used to fetch data periodically, do some calculations in the background or to do some cleanups. This can also be used to send preconfigured emails or whatever you need to do in the background.
 
@@ -70,7 +70,7 @@ public class SampleHostedService : IHostedService
 }
 ```
 
-To test this, I simply created a new ASP.NET Core application, placed this snippet inside, register the `HostedService` and started the application by calling the next command in the console:
+To test this, I simply created a new ASP.NET Core application, placed this snippet inside, registered the `HostedService` and started the application by calling the next command in the console:
 
 ```shell
 dotnet run
@@ -135,13 +135,13 @@ services.AddHostedService<Worker>();
 
 ## The new worker service projects
 
-The new worker services and the generic hosting in ASP.NET Core 3.0 makes it pretty easy to create simple service like applications that only do some stuff without the full blown ASP.NET stack and without a web server. This project is simply created like with this command:
+The new worker services and the generic hosting in ASP.NET Core 3.0 makes it pretty easy to create simple service like applications that only do some stuff without the full blown ASP.NET stack and without a web server. This project is simply created with the following command:
 
 ~~~ shell
 dotnet new worker -n BackgroundServiceSample -o BackgroundServiceSample
 ~~~
 
-This created basically a console application with a `Program.cs` and a `Worker.cs`. The `Worker.cs` is the `BackgrounService` and the Programm looks pretty familiar but without the `WebHostBuilder`
+Basically this created a console application with a `Program.cs` and a `Worker.cs`. The `Worker.cs` is the `BackgrounService` and the program looks pretty familiar but without the `WebHostBuilder`.
 
 ~~~ csharp
 public class Program
@@ -164,12 +164,12 @@ This creates a `IHostBuilder` with a dependency injection enabled. This means we
 
 Than the `Worker` gets added to the service collection.
 
-Where is this useful? You can run this app as a Windows service or as a background application in a docker container, which doesn't need an HTTP endpoint.
+Where is this useful? You can run this app as a Windows service or as a background application in a docker container, which does not need a HTTP endpoint.
 
 ## Conclusion
 
-You can now start to do some more complex thing with the `IHostedServices` and the `BackgroundService`. Be careful with background services, because they run all in the same application. Don't use to much CPU or memory, this could slow down your application.
+You can now start to do some more complex things with the `IHostedServices` and the `BackgroundService`. Be careful with background services, because they run all in the same application. Do not use too much CPU or memory, this could slow down your application.
 
-For bigger applications I would suggest to move such tasks in a separate application that is specialized to execute background tasks. A separate Docker container, a BackroundWorker on Azure, Azure Functions or something like this. However it should be separated from the main application in that case
+For bigger applications I would suggest to move such tasks in a separate application that is specialized to execute background tasks. A separate Docker container, a BackroundWorker on Azure, Azure Functions or something like this. However it should be separated from the main application in that case.
 
-In the next chapter I'm going to write about `Middlewares` and how you can use them to implement special logic to the request pipeline, or how you are able to serve specific logic on different paths.
+In the next chapter I am going to write about `Middlewares` and how you can use them to implement special logic to the request pipeline, or how you are able to serve specific logic on different paths.
