@@ -1,6 +1,6 @@
 # Part 01: Logging
 
-In this first part of the new blog series about customizing ASP.NET Core, I will show you how to customize the logging. The default logging only writes to the console or to the debug window. This is quite good for the most cases, but maybe you need to log to a sink like a file or a database. Maybe you want to extend the logger with additional information. In that cases you need to know how to change the default logging.
+In this first part of the book about customizing ASP.NET Core, I will show you how to customize the logging. The default logging only writes to the console or to the debug window. This is quite good for most cases, but maybe you need to log to a sink like a file or a database. Maybe you want to extend the logger with additional information. In these cases you need to know how to change the default logging.
 
 ## Configure logging
 
@@ -161,11 +161,11 @@ logging.AddProvider(new ColoredConsoleLoggerProvider(config));
 
 If needed, you are able to clear all the previously added logger providers. Than we call `AddProvider` to add a new instance of our `ColoredConsoleLoggerProvider` with the specific settings. We could also add some more instances of the provider with different settings.
 
-This shows ho to handle different log levels in a a different way. You can use this to send an emails on hard errors, to log debug messages to a different log sink than regular informational messages and so on. 
+This shows how to handle different log levels in a different way. You can use this to send emails on hard errors, to log debug messages to a different log sink than regular informational (?) messages and so on. 
 
 ![](images/customize-aspnetcore/custom-logger.PNG)
 
-In many cases it doesn't make sense to write a custom logger because there are already many good third party loggers, like elmah, log4net and NLog. In the next section I'm going to show you how to use NLog in ASP.NET Core
+In many cases it does not make sense to write a custom logger because there are already many good third party loggers, like elmah, log4net and NLog. In the next section I am going to show you how to use NLog in ASP.NET Core
 
 ## Plug-in an existing third-party logger provider
 
@@ -214,7 +214,7 @@ The next snippet shows a typical `NLog.Config` that defines two different sinks 
 </nlog>
 ```
 
-We than need to add the NLog ASP.NET Core package from NuGet:
+We then need to add the NLog ASP.NET Core package from NuGet:
 
 ```shell
 dotnet add package NLog.Web.AspNetCore
