@@ -161,11 +161,11 @@ logging.AddProvider(new ColoredConsoleLoggerProvider(config));
 
 If needed, you are able to clear all the previously added logger providers. Than we call `AddProvider` to add a new instance of our `ColoredConsoleLoggerProvider` with the specific settings. We could also add some more instances of the provider with different settings.
 
-This shows how to handle different log levels in a different way. You can use this to send emails on hard errors, to log debug messages to a different log sink than regular informational (?) messages and so on. 
+This shows how to handle different log levels in a different way. You can use this to send emails on hard errors, to log debug messages to a different log sink than regular informational messages and so on. 
 
 ![](images/customize-aspnetcore/custom-logger.PNG)
 
-In many cases it does not make sense to write a custom logger because there are already many good third party loggers, like elmah, log4net and NLog. In the next section I am going to show you how to use NLog in ASP.NET Core
+In many cases it doesn't make sense to write a custom logger because there are already many good third party loggers, like elmah, log4net and NLog. In the next section I'm going to show you how to use NLog in ASP.NET Core
 
 ## Plug-in an existing third-party logger provider
 
