@@ -1,6 +1,6 @@
 # Part 05: IHostedService and BackgroundService
 
-This fifth part does not really show a customization. This part is more about a feature you can use to create background services to run tasks asynchronously inside your application. Actually I use this feature to regularly fetch data from a remote service in a small ASP.NET Core application. 
+This fifth part doesn't really show a customization. This part is more about a feature you can use to create background services to run tasks asynchronously inside your application. Actually I use this feature to regularly fetch data from a remote service in a small ASP.NET Core application. 
 
 ## About IHostedService
 
@@ -164,12 +164,12 @@ This creates a `IHostBuilder` with a dependency injection enabled. This means we
 
 Than the `Worker` gets added to the service collection.
 
-Where is this useful? You can run this app as a Windows service or as a background application in a docker container, which does not need a HTTP endpoint.
+Where is this useful? You can run this app as a Windows service or as a background application in a docker container, which doesn't need a HTTP endpoint.
 
 ## Conclusion
 
-You can now start to do some more complex things with the `IHostedServices` and the `BackgroundService`. Be careful with background services, because they run all in the same application. Do not use too much CPU or memory, this could slow down your application.
+You can now start to do some more complex things with the `IHostedServices` and the `BackgroundService`. Be careful with background services, because they run all in the same application. Don't use too much CPU or memory, this could slow down your application.
 
 For bigger applications I would suggest to move such tasks in a separate application that is specialized to execute background tasks. A separate Docker container, a BackroundWorker on Azure, Azure Functions or something like this. However it should be separated from the main application in that case.
 
-In the next chapter I am going to write about `Middlewares` and how you can use them to implement special logic to the request pipeline, or how you are able to serve specific logic on different paths.
+In the next chapter I'm going to write about `Middlewares` and how you can use them to implement special logic to the request pipeline, or how you are able to serve specific logic on different paths.
