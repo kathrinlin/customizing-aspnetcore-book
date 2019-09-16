@@ -2,9 +2,9 @@
 
 This is not a planned book. During 2018 I wrote a blog post series about customizing APS.NET Core in my blog on https://asp.net-hacker.rocks and one day I got asked to bundle that series to a book. 
 
-I liked the idea instantly. I always thought about writing a book one day and last year I started to write a book about ASP.NET Core and React with a friend. Working with a publisher did not work well. So I played around with self publishing platforms and ended up with LeanPup.
+This idea wasn't that bad. I always thought about writing a book one day and last year I started to write a book about ASP.NET Core and React with a friend. But  working with a publisher did not work that well. So I played around with self publishing platforms and ended up with LeanPup.
 
-Now I am going to try to pack the blog series into a book. And I am going to try LeanPup in a real scenario. At the end it was pretty fast to copy all the blog posts into this book. Including the images I got an edition with 77 pages. Not that bad.
+Now I'm going to try to pack the blog series into a book. And I'm going to try LeanPup in a real scenario. At the end it was pretty fast to copy all the blog posts into this book. Including the images I got an edition with 77 pages. Not that bad, isn't it?
 
 But there was still some more work to do:
 
@@ -21,4 +21,5 @@ Even if all the content is on my blog, I hope you will find this book useful and
 
 While writing this book, I got help by the following contributors, who fixed errors and mistakes:
 
-* [Code Therapist](https://github.com/codetherapist)
+* [Code Therapist](https://github.com/codetherapist) (Software Developer)
+* Kathrin Lindegger (Communications Manager)
