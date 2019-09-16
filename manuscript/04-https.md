@@ -35,7 +35,7 @@ public class Program
 }
 ```
 
-This method accepts an action to configure the Kestrel webserver. What we actually need to do is to configure the addresses and ports the webserver is listen on.(?) For the HTTPS port we also need to configure how the certificate should be loaded.
+This method accepts an action to configure the Kestrel webserver. What we actually need to do is to configure the addresses and ports the webserver is listening on. For the HTTPS port we also need to configure how the certificate should be loaded.
 
 ```csharp
 .UseKestrel(options => 
@@ -66,8 +66,9 @@ The problem is the hard coded password. **Never ever** store a password in a cod
 
 ## Conclusion
 
-This is just a small customization. However, this helps if you want to share the code between different platforms, if you want to run your application on Docker and do not want to care about certificate stores, etc.
+This is just a small customization. Anyway, this helps if you want to share the code between different platforms, if you want to run your application on Docker and don't want to care about certificate stores, etc.
 
-Usually, if you run your application behind an web server like IIS or NGinX, you do not need to care about certificates in your ASP.NET Core 3.0 application. But you need to if you host your application inside another application, on Docker or without an IIS or NGinX.
+Usually, if you run your application behind an web server like IIS or NGinX, you don't need to care about certificates in your ASP.NET Core 3.0 application. But you need to if you host your application inside another application, on Docker or without an IIS or NGinX.
 
 ASP.NET Core 3.0 has a new feature to **run tasks in the background** inside the application. To learn more about that, read the next chapter.
+
