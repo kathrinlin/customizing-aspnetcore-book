@@ -210,7 +210,7 @@ config.AddMyCustomSource("source", optional: false, reloadOnChange: true);
 
 ## Conclusion
 
-In most cases it is not necessary to add a different configuration provider or to create your own configuration provider, but it is good to know how to change it in case you need it. Also using typed configuration is a nice way to read the settings. In classic ASP.NET we used a manually created façade to read the application settings in a typed way. Now this is automatically done by just providing a class. This class get's automatically filled and provided via **dependency injection**.
+In most cases it's not needed to add a different configuration provider or to create your own configuration provider, but it's good to know how to change it in case you need it. Also using typed configuration is a nice way to read the settings. In classic ASP.NET we used a manually created façade to read the application settings in a typed way. Now this is automatically done by just providing a class. This class get's automatically filled and provided via **dependency injection**.
 
 To learn more about **Dependency Injection** in ASP.NET Core 3.0 have a look into the next chapter.
 
