@@ -1,21 +1,21 @@
 # Part 06: Middlewares
 
-Wow, it is already the sixth part of this series. In this post I'm going to write about Middlewares and how you can use them to customize your app a little more. I quickly go threw the basics about Middlewares and than I'll write about some more specials things you can do with Middlewares.
+Wow, it is already the sixth part of this series. In this chapter I am going to write about Middlewares and how you can use them to customize your app a little more. I quickly go through the basics about Middlewares and then I will write about some more special things you can do with Middlewares.
 
 ## About Middlewares
 
-The most of you already know what Middlewares are, but some of you maybe don't. Even if you already use ASP.NET Core for a while, you don't really need to know details about Middlewares, because they are mostly hidden behind nicely named extension methods like `UseMvc()`, `UseAuthentication()`, `UseDeveloperExceptionPage()` and so on. Every time you call a `Use`-method in the `Startup.cs` in the `Configure` method, you'll implicitly use at least one ore maybe more Middlewares.
+The most of you already know what Middlewares are, but some of you maybe not. Even if you already use ASP.NET Core for a while, you might not know details about Middlewares, because they are mostly hidden behind nicely named extension methods like `UseMvc()`, `UseAuthentication()`, `UseDeveloperExceptionPage()` and so on. Every time you call a `Use`-method in the `Startup.cs` in the `Configure` method, you will implicitly use at least one or maybe more Middlewares.
 
-A middleware is a peace of code that handles the request pipeline. Imagine the request pipeline as huge tube where you can call something in and where an echo comes back. The Middlewares are responsible for  create this echo or to manipulate the sound, to enrich the information or to handle the source sound or to handle the echo. 
+A middleware is a peace of code that handles the request pipeline. Imagine the request pipeline as huge tube where you can call something in and where an echo comes back. The Middlewares are responsible for the creation of this echo or to manipulate the sound, to enrich the information or to handle the source sound or to handle the echo. 
 
 Middlewares are executed in the order they are configured. The first configured middleware is the first that gets executed.
 
-In an ASP.NET Core web, if the client requests an image or any other static file, the `StaticFileMiddleware` searches for that resource and return that resource if it finds one. If not this middleware does nothing except to call the next one. If there is no last middleware that handles the request pipeline, the request returns nothing. The `MvcMiddleware` also checks the requested resource, tries to map it to a configured route, executes the controller, created a view and returns a HTML or Web API result. If the `MvcMiddleware` doesn't find a matching controller, it anyway will return a result in this case it is a 404 Status result. It returns an echo in any case. This is why the `MvcMiddleware` is the last configured middleware.
+In an ASP.NET Core web, if the client requests an image or any other static file, the `StaticFileMiddleware` searches for that resource and return that resource if it finds one. If not this middleware does nothing except to call the next one. If there is no last middleware that handles the request pipeline, the request returns nothing. The `MvcMiddleware` also checks the requested resource, tries to map it to a configured route, executes the controller, creates a view and returns a HTML or Web API result. If the `MvcMiddleware` does not find a matching controller, it anyway will return a result in this case it is a 404 Status result. It returns an echo in any case. This is why the `MvcMiddleware` is the last configured middleware.
 
 ![](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/index/_static/request-delegate-pipeline.png?view=aspnetcore-2.1)
 (Image source: [https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1))
 
-An exception handling middleware usually is one of the first configured middleware, but it is not because it get's executed at first, but at last. The first configured middleware is also the last one if the echo comes back the tube. An exception handling middleware validates the result and displays a possible exception in a browser and client friendly way. This is where a runtime error gets an 500 Status.
+An exception handling middleware is usually one of the first configured middlewares, but it is not because it gets executed first, but at last. The first configured middleware is also the last one if the echo comes back from the tube. An exception handling middleware validates the result and displays a possible exception in a browser and client friendly way. This is where a runtime error gets a 500 Status.
 
 You are able to see how the pipeline is executed if you create an empty ASP.NET Core application. I usually use the console and the .NET CLI tools:
 
@@ -73,7 +73,7 @@ app.Use(async (context, next) =>
 });
 ```
 
-This two calls of `app.Use()` also creates two lambda Middlewares, but this time the Middlewares are calling the next ones. Each middleware knows the next one and calls it. Both middleware writing to the response stream before and after the next middleware is called. This should demonstrate how the pipeline works. Before the next middleware is called the actual request is handled and after the next middleware is called, the response (echo) is handled.
+These two calls of `app.Use()` also create two lambda Middlewares, but this time the Middlewares are calling the next ones. Each middleware knows the next one and calls it. Both middlewares writing to the response stream before and after the next middleware are called. This should demonstrate how the pipeline works. Before the next middleware is called the actual request is handled and after the next middleware is called, the response (echo) is handled.
 
 If you now run the application (using `dotnet run`) and open the displayed URL in the browser, you should see a plain text result like this:
 
@@ -81,7 +81,7 @@ If you now run the application (using `dotnet run`) and open the displayed URL i
 ===>>>>>> Hello World! <<<<<<===
 ```
 
-Does this make sense to you? If yes, let's see how to use this concept to add some additional functionality to the request pipeline.
+Does this make sense to you? If yes, let us see how to use this concept to add some additional functionality to the request pipeline.
 
 ## Writing a custom middleware
 
@@ -106,7 +106,7 @@ app.Use(async (context, next) =>
 
 After that I write out the elapsed milliseconds to the response stream.
 
-If you write some more Middlewares the `Configure` method in the `Startup.cs` get's pretty messy. This is why the most Middlewares are written as separate classes. This could look like this:
+If you write some more Middlewares the `Configure` method in the `Startup.cs` gets pretty messy. This is why the most Middlewares are written as separate classes. This could look like this:
 
 ```csharp
 public class StopwatchMiddleWare
@@ -158,7 +158,7 @@ public static class StopwatchMiddlewareExtension
 }
 ```
 
-Now can simply call it like this:
+Now you can simply call it like this:
 
 ```csharp
 app.useStopwatch();
@@ -166,7 +166,7 @@ app.useStopwatch();
 
 This is the way you can provide additional functionality to a ASP.NET Core web through the request pipeline. You are able to manipulate the request or even the response using Middlewares. 
 
-The `AuthenticationMiddleware` for example tries to request user information from the request. If it doesn't find some it asked the client about it by sending a specific response back to the client. If it finds some, it adds the information to the request context and makes it available to the entire application this way.
+The `AuthenticationMiddleware` for example tries to request user information from the request. If it does not find any, it asked the client about it by sending a specific response back to the client. If it finds some, it adds the information to the request context and makes it available to the entire application this way.
 
 ## What else can we do using Middlewares?
 
@@ -206,7 +206,7 @@ app.Run(async (context) =>
 
 The path "/map1" is a specific branch that continues the request pipeline inside. The same with "/map2". Both maps have their own middleware configurations inside. All other not specified paths will follow the main branch.
 
-There's also a `MapWhen()` method to branch the pipeline based on a condition instead of branch based on a path:
+There is also a `MapWhen()` method to branch the pipeline based on a condition instead of branch based on a path:
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -234,7 +234,7 @@ public void Configure(IApplicationBuilder app)
 
 You can create conditions based on configuration values or as shown here, based on properties of the request context. In this case a query string property is used. You can use HTTP headers, form properties or any other property of the request context.
 
-You are also able to nest the maps to create child and grandchild branches of needed.
+You are also able to nest the maps to create child and grandchild branches if needed.
 
 `Map()` or `MapWhen()` is used to provide a special API or resource based an a specific path or a specific condition. The ASP.NET Core HealthCheck API is done like this. It first uses `MapWhen()` to specify the port to use and then the `Map()` to set the path for the HealthCheck API, or it uses `Map()` only if no port is specified. At the end the HealthCheckMiddleware is used:
 
@@ -259,9 +259,9 @@ private static void UseHealthChecksCore(IApplicationBuilder app, PathString path
 
 After I published this part on my blog [Hisham](https://www.twitter.com/hishambinateya) asked me a question on [Twitter](https://twitter.com/hishambinateya/status/1049672027299356672):
 
-> Another question that's Middlewares related, I'm not sure why I never seen anyone using IMiddleware instead of writing InvokeAsync manually?!! 
+> Another question that is Middlewares related, I am not sure why I never seen anyone using IMiddleware instead of writing InvokeAsync manually?!! 
 
-`IMiddleware` is new in ASP.NET Core 2.0 and actually I never knew that it exists before he tweeted about it.    I'll definitely have a deeper look into `IMiddleware` and will write about it. Until that you should read Hishams really good post about it: [Why you aren't using IMiddleware?](http://www.hishambinateya.com/why-you-arenot-using-imiddleware)
+`IMiddleware` is new in ASP.NET Core 2.0 and actually I never knew that it existed before he tweeted about it. I will definitely have a deeper look into `IMiddleware` and will write about it. Until that you should read Hishams really good post about it: [Why you aren't using IMiddleware?](http://www.hishambinateya.com/why-you-arenot-using-imiddleware)
 
 ## Update on ASP.NET Core 3.0
 
@@ -287,9 +287,9 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ~~~
 
-The first one is a Middleware that uses routing and the other one uses endpoints. What exactly is this?
+The first one is a middleware that uses routing and the other one uses endpoints. What exactly is this?
 
-This is the new so called endpoint routing. In ASP.NET Core 3.0 routing got moved out of the MVC framework. Previously it was part of MVC and only worked with MVC, Web API and Frameworks that are based on the MVC Framework. Now MVC and the other Frameworks are mapped to a specific route or endpoint. There are different kinds of endpoint definitions available.
+This is the new so called endpoint routing. In ASP.NET Core 3.0 routing got moved out of the MVC framework. Previously it was part of MVC and only worked with MVC, Web API and frameworks that are based on the MVC Framework. Now MVC and the other frameworks are mapped to a specific route or endpoint. There are different kinds of endpoint definitions available.
 
 In the snippet above a GET request gets mapped to the page root URL. In the next snippet MVC is mapped to a route pattern and Razor Pages are mapped to the razor pages specific file structure based routes:
 
@@ -303,7 +303,7 @@ app.UseEndpoints(endpoints =>
 });
 ~~~
 
-Yes. There is no `UseMvc()` used anymore, even if it still exists and is still working on the `IApplicationBiulder` level to not break existing code. Now there are new methods to activate ASP.NET Core features more granularly.
+Yes. There is no `UseMvc()` used anymore, even if it still exists and is still working on the `IApplicationBiulder` level to (do? to?) not break existing code. Now there are new methods to activate ASP.NET Core features more granularly.
 
 These are the most used new Map methods for ASP.NET Core 3.0:
 
@@ -316,11 +316,11 @@ endpoints.MapRazorPages(...); // Razor PAges
 endpoints.MapHealthChecks(...); // the new Health Checks
 ~~~
 
-There are a lot more methods to define fallback endpoints, to map routes and HTTP methods to Delegates and Middlewares.
+There are a lot more methods to define fallback endpoints, to map routes and HTTP methods to delegates and middlewares.
 
-If you want to create Middlewares that work an all request, like the `StopWatchMiddleware`, this will work as before on the `IApplicationBuilder`. If you have a Middleware that should work on a specific path or route, you should create a Map method  for it to map it to that route. It is not longer recommended to handle the route inside the middleware . With this approach the Middlewares are a lot more generic and they will work on multiple routes with a single configuration.
+If you want to create middlewares that work on all request, like the `StopWatchMiddleware`, this will work as before on the `IApplicationBuilder`. If you have a Middleware that should work on a specific path or route, you should create a Map method for it to map it to that route. It is not longer recommended to handle the route inside the middleware. With this approach the middlewares are a lot more generic and they will work on multiple routes with a single configuration.
 
-I recently wrote a Middleware to provide a GraphQL endpoint in a ASP.NET Core application. I wrote a Middleware for it and I needed to rewrite it to follow the ASP.NET Core 3.0 way of routing. The old way would still work, but will handle the paths and routs separately from the new ASP.NET Core routing.
+I recently wrote a Middleware to provide a GraphQL endpoint in a ASP.NET Core application. I wrote a Middleware for it and I needed to rewrite it to follow the ASP.NET Core 3.0 way of routing. The old way would still work, but will handle the paths and routes separately from the new ASP.NET Core routing.
 
 Let's quickly see how it looks like to write a Middleware that supports the new endpoint routing:
 
@@ -330,6 +330,6 @@ Let's quickly see how it looks like to write a Middleware that supports the new 
 
 ## Conclusion
 
-Most of the ASP.NET Core features are based on Middlewares and we are able to extend ASP.NET Core by creating our own Middlewares. 
+Most of the ASP.NET Core features are based on middlewares and we are able to extend ASP.NET Core by creating our own middlewares. 
 
-In the next to chapters I will have a look into different data types and how to handle them. I will create API outputs with any format and data type I want and except data of any type and format.
+In the next two chapters I will have a look into different data types and how to handle them. I will create API outputs with any format and data type I want and export data of any type and format.
