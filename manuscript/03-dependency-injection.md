@@ -11,7 +11,7 @@ In the most projects you don't really need to use a different dependency injecti
   - This could be done with NInject.
 - Maybe you want to configure the services in a configuration file outside the application, in an XML or JSON file instead in C# only
   - This is a common feature in various DI containers, but not yet supported in ASP.NET Core.
-- Maybe you do not want to have an immutable DI container, because you want to add services at runtime.
+- Maybe you don't want to have an immutable DI container, because you want to add services at runtime.
   - This is also a common feature in some DI containers.
 
 ## A look at the ConfigureServices Method
@@ -126,12 +126,12 @@ After that, the container gets build and stored in a property of type `IContaine
 
 ## Introducing Scrutor
 
-You do not always need to replace the existing .NET Core DI container to get and use nice features. In the beginning I mentioned the auto registration of services. This can also be done with a nice NuGet package called [Scrutor](https://www.nuget.org/packages/Scrutor/) by [Kristian Hellang](https://twitter.com/khellang) ([https://kristian.hellang.com/](https://kristian.hellang.com/)). Scrutor extends the IServiceCollection to automatically register services to the .NET Core DI container.
+You don't always need to replace the existing .NET Core DI container to get and use nice features. In the beginning I mentioned the auto registration of services. This can also be done with a nice NuGet package called [Scrutor](https://www.nuget.org/packages/Scrutor/) by [Kristian Hellang](https://twitter.com/khellang) ([https://kristian.hellang.com/](https://kristian.hellang.com/)). Scrutor extends the IServiceCollection to automatically register services to the .NET Core DI container.
 
 > "Assembly scanning and decoration extensions for Microsoft.Extensions.DependencyInjection"
 > https://github.com/khellang/Scrutor
 
-[Andrew Lock](https://andrewlock.net) published a pretty detailed blog post about Scrutor. It does not make sense to repeat that. Read that awesome post and learn more about it: [Using Scrutor to automatically register your services with the ASP.NET Core DI container](https://andrewlock.net/using-scrutor-to-automatically-register-your-services-with-the-asp-net-core-di-container/)
+[Andrew Lock](https://andrewlock.net) published a pretty detailed blog post about Scrutor. It doesn't make sense to repeat that. Read that awesome post and learn more about it: [Using Scrutor to automatically register your services with the ASP.NET Core DI container](https://andrewlock.net/using-scrutor-to-automatically-register-your-services-with-the-asp-net-core-di-container/)
 
 ## Update on ASP.NET Core 3.0
 
@@ -192,11 +192,11 @@ public void ConfigureContainer(ContainerBuilder builder)
 
 ## Conclusion
 
-Using this approach you are able to use any .NET Standard compatible DI container to replace the existing one. If the container of your choice does not provide a `ServiceProvider`, create your own that implements `IServiceProvider` and uses the DI container inside. If the container of your choice does not provide a method to populate the registered services into the container, create your own method. Loop over the registered services and add them to the other container.
+Using this approach you are able to use any .NET Standard compatible DI container to replace the existing one. If the container of your choice doesn't provide a `ServiceProvider`, create your own that implements `IServiceProvider` and uses the DI container inside. If the container of your choice doesn't provide a method to populate the registered services into the container, create your own method. Loop over the registered services and add them to the other container.
 
 Actually the last step sounds easy, but can be a hard task. Because you need to translate all the possible `IServiceCollection` registrations into registrations of the different container. The complexity of that task depends on the implementation details of the other one.
 
-However, you have the choice to use any DI container which is compatible to the .NET Standard. You have the chance to change a lot of default implementations in ASP.NET Core. 
+Anyway, you have the choice to use any DI container which is compatible to the .NET Standard. You have the choice to change a lot of default implementations in ASP.NET Core. 
 
 So you can with the default HTTPS behavior on Windows. To learn more about that please read the next chapter.
 
