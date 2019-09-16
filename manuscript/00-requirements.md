@@ -4,7 +4,7 @@ There are some little requirements to run the demos.
 
 Since .NET Core is cross platform, the demos should run on Mac and various Linux distributions as well, but I never tried it.
 
-First of all, you will find all the demos in this repository on GitHub:
+First of all, you'll find all the demos in this repository on GitHub:
 https://github.com/JuergenGutsch/customizing-aspnetcore
 
 ## Tools
@@ -27,7 +27,7 @@ You can download cmder on https://cmder.net/
 
 ## Knowledge
 
-To follow the demos, you should already know ASP.NET Core a little bit, because I am not going to explain ASP.NET Core in this book. You should understand the concepts of ASP.NET Core and know the main files of a new ASP.NET Core project.
+To follow the demos, you should already know ASP.NET Core a little bit, because I'm not going to explain ASP.NET Core in this book. You should understand the concepts of ASP.NET Core and know the main files of a new ASP.NET Core project.
 
 This is also not a book about .NET Core in general and it is not a C# book. So you should be familiar with C# and .NET, but not necessarily with .NET Core.
 
