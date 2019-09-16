@@ -1,10 +1,10 @@
 # Part 06: Middlewares
 
-Wow, it is already the sixth part of this series. In this chapter I am going to write about Middlewares and how you can use them to customize your app a little more. I quickly go through the basics about Middlewares and then I will write about some more special things you can do with Middlewares.
+Wow, it is already the sixth part of this series. In this chapter I'm going to write about Middlewares and how you can use them to customize your app a little more. I quickly go through the basics about Middlewares and then I'll write about some more special things you can do with Middlewares.
 
 ## About Middlewares
 
-The most of you already know what Middlewares are, but some of you maybe not. Even if you already use ASP.NET Core for a while, you might not know details about Middlewares, because they are mostly hidden behind nicely named extension methods like `UseMvc()`, `UseAuthentication()`, `UseDeveloperExceptionPage()` and so on. Every time you call a `Use`-method in the `Startup.cs` in the `Configure` method, you will implicitly use at least one or maybe more Middlewares.
+The most of you already know what Middlewares are, but some of you maybe not. Even if you already use ASP.NET Core for a while, you don't really need to know details about Middlewares, because they are mostly hidden behind nicely named extension methods like `UseMvc()`, `UseAuthentication()`, `UseDeveloperExceptionPage()` and so on. Every time you call a `Use`-method in the `Startup.cs` in the `Configure` method, you'll implicitly use at least one or maybe more Middlewares.
 
 A middleware is a peace of code that handles the request pipeline. Imagine the request pipeline as huge tube where you can call something in and where an echo comes back. The Middlewares are responsible for the creation of this echo or to manipulate the sound, to enrich the information or to handle the source sound or to handle the echo. 
 
@@ -81,7 +81,7 @@ If you now run the application (using `dotnet run`) and open the displayed URL i
 ===>>>>>> Hello World! <<<<<<===
 ```
 
-Does this make sense to you? If yes, let us see how to use this concept to add some additional functionality to the request pipeline.
+Does this make sense to you? If yes, let's see how to use this concept to add some additional functionality to the request pipeline.
 
 ## Writing a custom middleware
 
@@ -166,7 +166,7 @@ app.useStopwatch();
 
 This is the way you can provide additional functionality to a ASP.NET Core web through the request pipeline. You are able to manipulate the request or even the response using Middlewares. 
 
-The `AuthenticationMiddleware` for example tries to request user information from the request. If it does not find any, it asked the client about it by sending a specific response back to the client. If it finds some, it adds the information to the request context and makes it available to the entire application this way.
+The `AuthenticationMiddleware` for example tries to request user information from the request. If it doesn't find any, it asked the client about it by sending a specific response back to the client. If it finds some, it adds the information to the request context and makes it available to the entire application this way.
 
 ## What else can we do using Middlewares?
 
@@ -261,7 +261,7 @@ After I published this part on my blog [Hisham](https://www.twitter.com/hishambi
 
 > Another question that is Middlewares related, I am not sure why I never seen anyone using IMiddleware instead of writing InvokeAsync manually?!! 
 
-`IMiddleware` is new in ASP.NET Core 2.0 and actually I never knew that it existed before he tweeted about it. I will definitely have a deeper look into `IMiddleware` and will write about it. Until that you should read Hishams really good post about it: [Why you aren't using IMiddleware?](http://www.hishambinateya.com/why-you-arenot-using-imiddleware)
+`IMiddleware` is new in ASP.NET Core 2.0 and actually I never knew that it existed before he tweeted about it. I'll definitely have a deeper look into `IMiddleware` and will write about it. Until that you should read Hishams really good post about it: [Why you aren't using IMiddleware?](http://www.hishambinateya.com/why-you-arenot-using-imiddleware)
 
 ## Update on ASP.NET Core 3.0
 
@@ -303,7 +303,7 @@ app.UseEndpoints(endpoints =>
 });
 ~~~
 
-Yes. There is no `UseMvc()` used anymore, even if it still exists and is still working on the `IApplicationBiulder` level to (do? to?) not break existing code. Now there are new methods to activate ASP.NET Core features more granularly.
+Yes. There is no `UseMvc()` used anymore, even if it still exists and is still working on the `IApplicationBiulder` level to not break existing code. Now there are new methods to activate ASP.NET Core features more granularly.
 
 These are the most used new Map methods for ASP.NET Core 3.0:
 
@@ -324,7 +324,7 @@ I recently wrote a Middleware to provide a GraphQL endpoint in a ASP.NET Core ap
 
 Let's quickly see how it looks like to write a Middleware that supports the new endpoint routing:
 
-
+[TODO: Code]
 
 
 
