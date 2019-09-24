@@ -1,6 +1,6 @@
 # Part 08: ModelBinders
 
-In the last chapter about `OutputFormatters` I wrote about sending data out to the clients in different formats. In this post we are going to do it the other way. This post is about data you get into your Web API from outside. What if you get data in a special format or what if you get data you need to validate in a special way. `ModelBinders` will help you handling this.
+In the last chapter about `OutputFormatters` I wrote about sending data out to the clients in different formats. In this post we are going to do it the other way. This post is about data you get into your Web API from outside. What if you get data in a special format or what if you get data you need to validate in a special way. `ModelBinders` will help you to handle this.
 
 ## About ModelBinders
 
@@ -172,11 +172,11 @@ Here the type of our `CsvModelBinder` is set as `binderType` to that attribute.
 
 [Steve Gordon](https://twitter.com/stevejgordon) wrote about a second option in his blog post: [Custom ModelBinding in ASP.NET MVC Core](https://www.stevejgordon.co.uk/html-encode-string-aspnet-core-model-binding/). He uses a `ModelBinderProvider` to add the `ModelBinder` to the list of existing ones. 
 
-I personally prefer the explicit declaration, because the most custom `ModelBinders` will be pretty specific to an action or to an specific type and `theres` no hidden magic in the background.
+I personally prefer the explicit declaration, because the most custom `ModelBinders` will be pretty specific to an action or to a specific type and `there's` no hidden magic in the background.
 
 ## Testing the ModelBinder
 
-To test it, we need to create a new Request in Postman. I set the request type to POST and put the URL https://localhost:5001/api/persons in the address bar. No I need to add the CSV data in the body of the request. Because it is a URL formatted body, I needed to put the data as `persons` variable into the body:
+To test it, we need to create a new Request in Postman. I set the request type to POST and put the URL https://localhost:5001/api/persons in the address bar. Now I need to add the CSV data in the body of the request. Because it is a URL formatted body, I needed to put the data as `persons` variable into the body:
 
 ```text
 persons=Id,FirstName,LastName,Age,EmailAddress,Address,City,Phone
@@ -203,5 +203,5 @@ To learn more about ModelBinders, you need to have a look into the pretty detail
 
 While playing around with the `ModelBinderProvider` Steve describes in his blog, I stumbled upon `InputFormatters`. Would this actually be the right way to transform CSV input into objects? I definitely need to learn some more details about the `InputFormatters`and will use this as 12th topic of this series.
 
-In the next chapterI will show you what you can do with **ActionFilters**.
+In the next chapter, I will show you what you can do with **ActionFilters**.
 
