@@ -25,7 +25,7 @@ services.AddControllers()
     });
 ```
 
-> There is also a XmlDataContractSerializerOutputFormatter available
+> There is also a XmlDataContractSerializerOutputFormatter available.
 
 Also any Accept header gets turned into `application/json`. If you want to allow the clients to accept different headers, you need to switch that translation off:
 
@@ -201,7 +201,7 @@ public class VcardOutputFormatter : TextOutputFormatter
 
 In the constructor we need to specify the supported media types and encodings. In the method `CanWriteType()` we need to check whether the current type is supported within this output formatters. Here we only want to format a single `Person` or a lists of `Persons`.
 
-The method `WriteResponseBodyAsync()` then actually writes the list of persons out to the response stream via a `StringBuilder`
+The method `WriteResponseBodyAsync()` then actually writes the list of persons out to the response stream via a `StringBuilder`.
 
 At least we need to register the new `VcardOutputFormatter` in the `Startup.cs`:
 
