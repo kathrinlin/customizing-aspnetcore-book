@@ -161,7 +161,7 @@ public static class StopwatchMiddlewareExtension
 Now you can simply call it like this:
 
 ```csharp
-app.useStopwatch();
+app.UseStopwatch();
 ```
 
 This is the way you can provide additional functionality to a ASP.NET Core web through the request pipeline. You are able to manipulate the request or even the response using Middlewares. 
