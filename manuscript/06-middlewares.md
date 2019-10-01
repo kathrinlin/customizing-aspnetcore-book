@@ -313,7 +313,7 @@ endpoints.MapControllerRoute(...); // MVC & WebAPI
 endpoints.MapBlazorHub(...); // Blazor Server Side
 endpoints.MapHub(...); // SignalR
 endpoints.MapRazorPages(...); // Razor PAges
-endpoints.MapHealthChecks(...); // the new Health Checks
+endpoints.MapHealthChecks(...); // Health Checks
 ~~~
 
 There are a lot more methods to define fallback endpoints, to map routes and HTTP methods to delegates and middlewares.
