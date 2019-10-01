@@ -4,7 +4,7 @@ In this seventh chapter I want to write about, how to send your Data in differen
 
 ## About OutputFormatters
 
-OutputFormatters are classes that turn your data into a different format to sent them trough HTTP to the clients. Web API uses a default OutputFormatter to turn objects into JSON, which is the default format to send data in a structured way. Other build in formatters are a XML formatter and a plan text formatter.
+OutputFormatters are classes that turn your data into a different format to sent them trough HTTP to the clients. Web API uses a default OutputFormatter to turn objects into JSON, which is the default format to send data in a structured way. Other built-in formatters are a XML formatter and a plan text formatter.
 
 With the - so called - content negotiation the client is able to decide which format he wants to retrieve .The client need to specify the content type of the format in the Accept-Header. The content negotiation is implemented in the ObjectResult.
 
