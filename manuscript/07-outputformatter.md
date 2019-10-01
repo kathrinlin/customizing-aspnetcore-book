@@ -113,7 +113,7 @@ After I press send I will see the JSON result in the response body below:
 
 Here you can see the auto generated values. GenFu puts the data in based on the property type and the property name. So it puts real first names and real last names as well as real cities and phone numbers into the Persons properties. 
 
-No let's test the XML output formatter.
+Now let's test the XML output formatter.
 
 In postman change the Accept header form `application/json` to `text/xml` and press send:
 
