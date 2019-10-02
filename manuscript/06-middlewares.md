@@ -161,7 +161,7 @@ public static class StopwatchMiddlewareExtension
 Now you can simply call it like this:
 
 ```csharp
-app.useStopwatch();
+app.UseStopwatch();
 ```
 
 This is the way you can provide additional functionality to a ASP.NET Core web through the request pipeline. You are able to manipulate the request or even the response using Middlewares. 
@@ -313,7 +313,7 @@ endpoints.MapControllerRoute(...); // MVC & WebAPI
 endpoints.MapBlazorHub(...); // Blazor Server Side
 endpoints.MapHub(...); // SignalR
 endpoints.MapRazorPages(...); // Razor PAges
-endpoints.MapHealthChecks(...); // the new Health Checks
+endpoints.MapHealthChecks(...); // Health Checks
 ~~~
 
 There are a lot more methods to define fallback endpoints, to map routes and HTTP methods to delegates and middlewares.
@@ -332,4 +332,4 @@ Let's quickly see how it looks like to write a Middleware that supports the new 
 
 Most of the ASP.NET Core features are based on middlewares and we are able to extend ASP.NET Core by creating our own middlewares. 
 
-In the next two chapters I will have a look into different data types and how to handle them. I will create API outputs with any format and data type I want and export data of any type and format.
+In the next two chapters I will have a look into different data types and how to handle them. I will create API outputs with any format and data type.
